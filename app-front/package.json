@@ -1,0 +1,45 @@
+{
+  "name": "my-razzle-app",
+  "version": "4.2.14",
+  "license": "MIT",
+  "scripts": {
+    "start": "razzle start",
+    "build": "razzle build --noninteractive",
+    "test": "razzle test --env=jsdom",
+    "start:prod": "NODE_ENV=production node build/server.js"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "@mui/lab": "^5.0.0-alpha.67",
+    "@mui/material": "^5.4.0",
+    "axios": "^0.21.1",
+    "express": "^4.17.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-router-dom": "^6.2.1",
+    "react-slick": "^0.28.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.2",
+    "babel-preset-razzle": "4.2.14",
+    "html-webpack-plugin": "^4.5.2",
+    "i": "^0.3.7",
+    "mini-css-extract-plugin": "^0.9.0",
+    "normalize.css": "^8.0.1",
+    "npm": "^8.4.0",
+    "postcss": "^8.4.6",
+    "postcss-animation": "0.0.12",
+    "postcss-color-mod-function": "^3.0.3",
+    "postcss-custom-media": "^8.0.0",
+    "postcss-inline-svg": "^5.0.0",
+    "postcss-nested": "^5.0.6",
+    "postcss-pxtorem": "^6.0.0",
+    "postcss-variables": "^1.1.1",
+    "razzle": "^4.2.14",
+    "razzle-dev-utils": "^4.2.14",
+    "style-loader": "^3.3.1",
+    "webpack": "^4.44.1",
+    "webpack-dev-server": "^3.11.2"
+  }
+}

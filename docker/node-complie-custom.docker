@@ -1,0 +1,25 @@
+FROM node:12.12
+#FROM node:16.14
+
+
+
+RUN apt-get update
+RUN apt-get install -y git curl  zsh
+RUN echo "fs.inotify.max_user_instances=524288" >> /etc/sysctl.conf
+RUN echo "fs.inotify.max_user_watches=524288" >> /etc/sysctl.conf
+RUN echo "fs.inotify.max_queued_events=524288" >> /etc/sysctl.conf
+RUN npm install -g create-razzle-app
+#RUN npm install -g npm@8.4.1
+USER node
+#RUN apt-get -y install zsh
+RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.2/zsh-in-docker.sh)"  -a 'CASE_SENSITIVE="true"'
+
+
+WORKDIR /var/www
+
+EXPOSE 3000
+EXPOSE 3001
+
+####CMD ["laravel-echo-server", "stop", "laravel-echo-server", 'start']
+#CMD ["sh", "-c", "laravel-echo-server stop ; laravel-echo-server start"]
+

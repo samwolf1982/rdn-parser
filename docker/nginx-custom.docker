@@ -1,0 +1,15 @@
+FROM nginx:1.10
+RUN apt-get update
+RUN apt-get update
+RUN apt-get install -y git curl  zsh wget
+RUN echo "fs.inotify.max_user_instances=524288" >> /etc/sysctl.conf
+RUN echo "fs.inotify.max_user_watches=524288" >> /etc/sysctl.conf
+RUN echo "fs.inotify.max_queued_events=524288" >> /etc/sysctl.conf
+
+USER root
+#RUN apt-get -y install zsh
+RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.2/zsh-in-docker.sh)"  -a 'CASE_SENSITIVE="true"'
+
+#ADD ./docker/nginx-conf/default.conf /etc/nginx/conf.d/default.conf
+
+WORKDIR /var/www

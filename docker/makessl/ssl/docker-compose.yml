@@ -1,0 +1,15 @@
+version: '3'
+services:
+  webservertmp:
+    image: nginx:mainline-alpine
+    container_name: webservertmp
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./ssl:/etc/letsencrypt
+      - /usr/share/nginx/html
+volumes:
+  certbot-var:
+
+

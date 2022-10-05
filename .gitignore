@@ -1,0 +1,14 @@
+storage/docker/mysql
+storage/docker/redis
+developers
+
+app-back/vendor
+.idea/php.xml
+.idea/dominanta-v3.iml
+.idea/*
+.idea
+app-back/.env
+.idea/php.xml
+app-back/vendor
+
+app-front/package-lock.json

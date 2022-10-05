@@ -1,0 +1,11 @@
+@font-face {
+  font-family: 'Montserrat-ExtraBoldItalic';
+  src: url('Montserrat-ExtraBoldItalic.eot');
+  src: url('Montserrat-ExtraBoldItalic.eot?#iefix') format('embedded-opentype'),
+       url('Montserrat-ExtraBoldItalic.ttf') format('truetype'),
+       url('Montserrat-ExtraBoldItalic.woff') format('woff'),
+       url('Montserrat-ExtraBoldItalic.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+

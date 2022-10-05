@@ -1,0 +1,217 @@
+version: "3.3"
+#version: "3.7"
+services:
+  nginx:
+    build:
+      context: ./
+      dockerfile: docker/nginx-custom.docker
+    ports:
+      - "80:80"
+      - "443:443"
+      - "3000:3000"
+      - "3001:3001"
+      # - "${SOCKET_ECHO_SERVER_PORT}:6001"
+    volumes:
+      - type: bind
+        source: ./app-back
+        target: /var/www/app-back
+      - type: bind
+        source: ./app-front
+        target: /var/www/app-front
+        
+        volume:
+          nocopy: true
+      - "./docker/makessl/localssl/ssl:/etc/letsencrypt/ssl"
+      - "./docker/nginx-conf/default.conf:/etc/nginx/conf.d/default.conf"
+
+    links:
+      - php-fpm
+      - php-fpm2
+#      - mailhog
+      - node
+    networks:
+      - main
+#      - apch
+  
+
+
+  node:
+    build:
+      context: ./
+      dockerfile: docker/node-complie-custom.docker
+    volumes:
+      - type: bind
+        source: ./app-front
+        target: /var/www
+        
+      - type: bind
+        source: ./app-front/stats
+        target: /tmp/stats
+    
+#    ports:
+#      - "3001:3001"
+#      - "3001:3000"
+#      - "443:443"
+    # ports:
+    #   - "${SOCKET_ECHO_SERVER_PORT}:6001"    
+#    environment:
+#      - "DB_PORT=${MYSQL_DB_PORT}"
+#      - "DB_HOST=mysql"
+#      - "REDIS_PORT=6379"
+#      - "REDIS_HOST=redis"
+
+    links:
+     - mysql
+     - redis
+     - php-fpm
+    networks:
+      - main
+    tty: true
+
+
+#  apch:
+#    build:
+#      context: ./
+#      dockerfile: docker/apache-custom.docker
+#    # ports:
+#    #  - "80:80"
+#      # - "443:443"
+#    environment:
+#      - "DB_PORT=${MYSQL_DB_PORT}"
+#      - "DB_HOST=${MYSQL_DB_HOST}"
+#      - "REDIS_PORT=6379"
+#      - "REDIS_HOST=redis"
+#    #    volumes:
+#    #      - app_volume:/var/www
+#    volumes:
+#      - ./app-back:/var/www/html
+#      #- ./docker/apch/000-default.conf:/etc/apache2/sites-available/000-default.conf
+#      #- ./docker/apch/api.bixex.local.com.conf:/etc/apache2/sites-available/api.bixex.local.com.conf
+#    # volumes:
+#    #   - type: bind
+#    #     source: ./bixex_prod
+#    #     target: /var/www/html
+#    links:
+#      - mailhog
+#      - node
+#      - mysql
+#      - redis
+#    tty: true
+
+
+  php-fpm:
+    build:
+      context: ./
+      dockerfile: docker/php-fpm-custom.docker
+    volumes:
+      - type: bind
+        source: ./app-back
+        target: /var/www
+    environment:
+      - "DB_PORT=${MYSQL_DB_PORT}"
+      - "DB_HOST=${MYSQL_DB_HOST}"
+      - "REDIS_PORT=6379"
+      - "REDIS_HOST=redis"
+    links:
+      - mysql
+      - redis
+      - mailhog
+    networks:
+      - main
+
+  php-fpm2:
+    build:
+      context: ./
+      dockerfile: docker/php-fpm-custom.docker
+    volumes:
+      - type: bind
+        source: ./app-back
+        target: /var/www
+    environment:
+      - "DB_PORT=${MYSQL_DB_PORT}"
+      - "DB_HOST=${MYSQL_DB_HOST}"
+      - "REDIS_PORT=6379"
+      - "REDIS_HOST=redis"
+    links:
+      - mysql
+      - redis
+      - mailhog
+    networks:
+      - main
+
+
+  php-cli:
+    build:
+      context: ./
+      dockerfile: docker/php-cli-custom.docker
+    volumes:
+      - type: bind
+        source: ./app-back
+        target: /var/www
+    environment:
+      - "DB_PORT=${MYSQL_DB_PORT}"
+      - "DB_HOST=${MYSQL_DB_HOST}"
+      - "REDIS_PORT=6379"
+      - "REDIS_HOST=redis"
+    links:
+      - mysql
+      - redis
+      - mailhog
+    networks:
+      - main
+    tty: true
+
+
+
+
+  mysql:
+    image: mysql
+#    позволяет подлкючиться через свой mysql
+    command: --default-authentication-plugin=mysql_native_password --sort_buffer_size=512K
+    volumes:
+      - ./storage/docker/mysql:/var/lib/mysql
+      - ./storage/seeds/msql:/docker-entrypoint-initdb.d
+    environment:
+      - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}"
+      - "MYSQL_USER=${MYSQL_USER}"
+      - "MYSQL_PASSWORD=${MYSQL_PASSWORD}"
+      - "MYSQL_DATABASE=${MYSQL_DATABASE}"
+    ports:
+      - "${MYSQL_DB_PORT}:3306"
+    networks:
+      - main
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./storage/docker/redis:/data
+    networks:
+      - main
+      
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - mysql:db
+    ports:
+      - "${PHPMYADMIN_PORT}:80"
+    environment:
+      - "MYSQL_USER=${MYSQL_USER}"
+      - "MYSQL_PASSWORD=${MYSQL_PASSWORD}"
+      - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}"
+    networks:
+      - main
+
+
+#  url http://localhost:8025
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "${MAIL_HOG_SMTP_PORT}:1025"
+      - "${MAIL_HOG_HTTP_PORT}:8025"
+    networks:
+      - main
+
+networks:
+  main:

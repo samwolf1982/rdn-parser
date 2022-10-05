@@ -1,0 +1,49 @@
+FROM php:7.4.15-apache
+
+RUN apt-get update
+RUN docker-php-ext-install pdo_mysql
+
+
+
+ADD ./docker/apch/httpd.conf /usr/local/etc/apache24/httpd.conf
+ADD ./docker/makessl/localssl/ssl/localhost.key /etc/letsencrypt/ssl/localhost.key
+ADD ./docker/makessl/localssl/ssl/localhost.pem /etc/letsencrypt/ssl/localhost.pem
+ADD ./docker/makessl/localssl/ssl/localhost.crt /etc/letsencrypt/ssl/localhost.crt
+
+ADD ./docker/apch/000-default.conf /etc/apache2/sites-available/000-default.conf
+
+RUN a2enmod proxy
+RUN a2enmod proxy_http
+RUN a2enmod proxy_ajp
+RUN a2enmod proxy_balancer
+RUN a2enmod proxy_connect
+RUN a2enmod proxy_html
+RUN a2enmod proxy_wstunnel
+RUN a2enmod ssl
+RUN a2enmod headers
+
+
+##RUN systemctl restart apache2
+##RUN systemctl restart httpd
+
+
+RUN a2enmod rewrite
+RUN service apache2 restart
+
+RUN apt-get update --fix-missing
+RUN apt-get install -y curl git zip wget
+RUN apt-get install -y build-essential libssl-dev zlib1g-dev libpng-dev libjpeg-dev libfreetype6-dev
+
+RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ \
+    && docker-php-ext-install gd \
+    && apt-get install -y libicu-dev \
+    && docker-php-ext-configure intl \
+    && docker-php-ext-install intl  
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN docker-php-ext-install sockets &&  docker-php-ext-install exif && docker-php-ext-install exif
+RUN apt-get install -y libxml2-dev && docker-php-ext-install soap
+# Memory Limit
+RUN echo "memory_limit=250M" > $PHP_INI_DIR/conf.d/memory-limit.ini    
+
+WORKDIR /var/www/html/

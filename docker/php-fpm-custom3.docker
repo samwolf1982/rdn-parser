@@ -1,0 +1,54 @@
+FROM php:7.3.8-fpm
+
+RUN apt-get update
+RUN apt-get install -y libmcrypt-dev default-mysql-client libpq-dev mcrypt
+
+RUN docker-php-ext-install pdo_mysql
+
+RUN apt-get update --fix-missing
+RUN apt-get install -y curl git zip wget
+RUN apt-get install -y build-essential libssl-dev zlib1g-dev libpng-dev libjpeg-dev libfreetype6-dev
+
+RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install gd \
+    && apt-get install -y libicu-dev \
+    && docker-php-ext-configure intl \
+    && docker-php-ext-install intl
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+RUN docker-php-ext-install sockets &&  docker-php-ext-install exif && docker-php-ext-install exif
+RUN apt-get install -y libxml2-dev && docker-php-ext-install soap
+# Memory Limit
+RUN echo "memory_limit=250M" > $PHP_INI_DIR/conf.d/memory-limit.ini
+
+# ioncube loader
+#RUN curl  -fSL 'http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz' -o ioncube.tar.gz
+#RUN mkdir -p ioncube   && tar -xf ioncube.tar.gz -C ioncube --strip-components=1  && rm ioncube.tar.gz
+#RUN mv ioncube/ioncube_loader_lin_7.3.8.so $(php -r "echo ini_get('extension_dir');")/ioncube_loader_lin_7.3.8.so  && rm -r ioncube
+#RUN echo "zend_extension = '$(php -r "echo ini_get('extension_dir');")/ioncube_loader_lin_7.3.8.so'" > $PHP_INI_DIR/conf.d/00-ioncube.ini
+
+#RUN apt-get install -y npm
+#RUN npm install -g yarn
+
+##MailHog
+RUN wget https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsendmail_linux_amd64
+RUN chmod +x mhsendmail_linux_amd64
+RUN mv mhsendmail_linux_amd64 /usr/local/bin/mhsendmail
+RUN echo "[mail function]" > $PHP_INI_DIR/conf.d/mailhog.ini
+RUN echo "sendmail_path = '/usr/local/bin/mhsendmail --smtp-addr=\"mailhog:1025\"'" >> $PHP_INI_DIR/conf.d/mailhog.ini
+
+
+ADD ./docker/php-ini/php.ini /usr/local/etc/php/conf.d/php.override.ini
+# Install Xdebug
+#RUN yes | pecl install xdebug \
+#    && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
+#    && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
+#    && echo "xdebug.remote_autostart=off" >> /usr/local/etc/php/conf.d/xdebug.ini \
+#    && echo "xdebug.idekey=PHPSTORM" >> /usr/local/etc/php/conf.d/xdebug.ini \
+#    && echo "xdebug.remote_port=9000" >> /usr/local/etc/php/conf.d/xdebug.ini \
+#    && echo "xdebug.remote_connect_back=1" >> /usr/local/etc/php/conf.d/xdebug.ini \
+#    && docker-php-ext-enable xdebug
+
+
+WORKDIR /var/www
