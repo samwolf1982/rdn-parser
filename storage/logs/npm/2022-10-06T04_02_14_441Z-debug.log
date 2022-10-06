@@ -1,0 +1,88 @@
+0 verbose cli [ '/usr/bin/node', '/usr/bin/npm', 'i' ]
+1 info using npm@7.5.2
+2 info using node@v12.22.12
+3 timing config:load:defaults Completed in 1ms
+4 timing config:load:file:/usr/share/nodejs/npm/npmrc Completed in 1ms
+5 timing config:load:builtin Completed in 1ms
+6 timing config:load:cli Completed in 1ms
+7 timing config:load:env Completed in 0ms
+8 timing config:load:file:/var/www/.npmrc Completed in 0ms
+9 timing config:load:project Completed in 1ms
+10 timing config:load:file:/root/.npmrc Completed in 0ms
+11 timing config:load:user Completed in 0ms
+12 timing config:load:file:/etc/npmrc Completed in 0ms
+13 timing config:load:global Completed in 0ms
+14 timing config:load:cafile Completed in 0ms
+15 timing config:load:validate Completed in 0ms
+16 timing config:load:setUserAgent Completed in 0ms
+17 timing config:load:setEnvs Completed in 1ms
+18 timing config:load Completed in 5ms
+19 verbose npm-session 24f5cf87d04e7019
+20 timing npm:load Completed in 10ms
+21 timing arborist:ctor Completed in 1ms
+22 timing idealTree:init Completed in 359ms
+23 timing idealTree:userRequests Completed in 0ms
+24 silly idealTree buildDeps
+25 silly fetch manifest @emotion/cache@11.7.1
+26 http fetch GET 200 https://registry.npmjs.org/@emotion%2fcache 133ms
+27 silly fetch manifest @emotion/react@11.7.1
+28 http fetch GET 200 https://registry.npmjs.org/@emotion%2freact 496ms
+29 silly fetch manifest @babel/core@^7.0.0
+30 http fetch GET 200 https://registry.npmjs.org/@babel%2fcore 51ms
+31 silly fetch manifest react@^18.2.0
+32 http fetch GET 304 https://registry.npmjs.org/react 50ms (from cache)
+33 silly fetch manifest @emotion/styled@11.6.0
+34 http fetch GET 200 https://registry.npmjs.org/@emotion%2fstyled 447ms
+35 silly fetch manifest @mui/icons-material@5.4.1
+36 http fetch GET 200 https://registry.npmjs.org/@mui%2ficons-material 222ms
+37 silly fetch manifest @mui/material@5.4.1
+38 http fetch GET 200 https://registry.npmjs.org/@mui%2fmaterial 62ms
+39 silly fetch manifest @types/react@^16.8.6 || ^17.0.0
+40 http fetch GET 200 https://registry.npmjs.org/@types%2freact 76ms
+41 timing idealTree Completed in 1936ms
+42 timing command:install Completed in 2041ms
+43 verbose stack Error: unable to resolve dependency tree
+43 verbose stack     at Arborist.[failPeerConflict] (/usr/share/nodejs/@npmcli/arborist/lib/arborist/build-ideal-tree.js:1115:25)
+43 verbose stack     at Arborist.[loadPeerSet] (/usr/share/nodejs/@npmcli/arborist/lib/arborist/build-ideal-tree.js:1108:30)
+43 verbose stack     at async Arborist.[loadPeerSet] (/usr/share/nodejs/@npmcli/arborist/lib/arborist/build-ideal-tree.js:1084:11)
+43 verbose stack     at async Arborist.[buildDepStep] (/usr/share/nodejs/@npmcli/arborist/lib/arborist/build-ideal-tree.js:824:11)
+43 verbose stack     at async Arborist.buildIdealTree (/usr/share/nodejs/@npmcli/arborist/lib/arborist/build-ideal-tree.js:209:7)
+43 verbose stack     at async Promise.all (index 1)
+43 verbose stack     at async Arborist.reify (/usr/share/nodejs/@npmcli/arborist/lib/arborist/reify.js:127:5)
+43 verbose stack     at async install (/usr/share/nodejs/npm/lib/install.js:38:3)
+44 verbose cwd /var/www
+45 verbose Linux 5.4.0-122-generic
+46 verbose argv "/usr/bin/node" "/usr/bin/npm" "i"
+47 verbose node v12.22.12
+48 verbose npm  v7.5.2
+49 error code ERESOLVE
+50 error ERESOLVE unable to resolve dependency tree
+51 error
+52 error While resolving: [1mundefined[22m@[1mundefined[22m
+52 error Found: [1mreact[22m@[1m18.2.0[22m[2m[22m
+52 error [2mnode_modules/react[22m
+52 error   [1mreact[22m@"[1m^18.2.0[22m" from the root project
+52 error   [35mpeer[39m [1mreact[22m@"[1m>=16.8.0[22m" from [1m@emotion/react[22m@[1m11.7.1[22m[2m[22m
+52 error   [2mnode_modules/@emotion/react[22m
+52 error     [1m@emotion/react[22m@"[1m11.7.1[22m" from the root project
+52 error     peerOptional [1m@emotion/react[22m@"[1m^11.5.0[22m" from [1m@mui/material[22m@[1m5.4.1[22m[2m[22m
+52 error     [2mnode_modules/@mui/material[22m
+52 error       [1m@mui/material[22m@"[1m5.4.1[22m" from the root project
+52 error       1 more (@mui/icons-material)
+52 error     1 more (@emotion/styled)
+52 error   1 more (@emotion/styled)
+52 error
+52 error Could not resolve dependency:
+52 error [35mpeer[39m [1mreact[22m@"[1m^17.0.0[22m" from [1m@mui/material[22m@[1m5.4.1[22m[2m[22m
+52 error [2mnode_modules/@mui/material[22m
+52 error   [1m@mui/material[22m@"[1m5.4.1[22m" from the root project
+52 error   [35mpeer[39m [1m@mui/material[22m@"[1m^5.0.0[22m" from [1m@mui/icons-material[22m@[1m5.4.1[22m[2m[22m
+52 error   [2mnode_modules/@mui/icons-material[22m
+52 error     [1m@mui/icons-material[22m@"[1m5.4.1[22m" from the root project
+52 error
+52 error Fix the upstream dependency conflict, or retry
+52 error this command with --force, or --legacy-peer-deps
+52 error to accept an incorrect (and potentially broken) dependency resolution.
+52 error
+52 error See /root/.npm/eresolve-report.txt for a full report.
+53 verbose exit 1

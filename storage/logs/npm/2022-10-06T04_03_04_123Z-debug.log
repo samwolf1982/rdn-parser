@@ -1,0 +1,94 @@
+0 verbose cli [ '/usr/bin/node', '/usr/bin/npm', 'i' ]
+1 info using npm@7.5.2
+2 info using node@v12.22.12
+3 timing config:load:defaults Completed in 2ms
+4 timing config:load:file:/usr/share/nodejs/npm/npmrc Completed in 2ms
+5 timing config:load:builtin Completed in 2ms
+6 timing config:load:cli Completed in 2ms
+7 timing config:load:env Completed in 0ms
+8 timing config:load:file:/var/www/.npmrc Completed in 0ms
+9 timing config:load:project Completed in 1ms
+10 timing config:load:file:/root/.npmrc Completed in 0ms
+11 timing config:load:user Completed in 0ms
+12 timing config:load:file:/etc/npmrc Completed in 0ms
+13 timing config:load:global Completed in 0ms
+14 timing config:load:cafile Completed in 0ms
+15 timing config:load:validate Completed in 1ms
+16 timing config:load:setUserAgent Completed in 0ms
+17 timing config:load:setEnvs Completed in 1ms
+18 timing config:load Completed in 9ms
+19 verbose npm-session ae85a30297fb2c95
+20 timing npm:load Completed in 16ms
+21 timing arborist:ctor Completed in 1ms
+22 timing idealTree:init Completed in 362ms
+23 timing idealTree:userRequests Completed in 0ms
+24 silly idealTree buildDeps
+25 silly fetch manifest @emotion/cache@^11.10.3
+26 http fetch GET 200 https://registry.npmjs.org/@emotion%2fcache 16ms (from cache)
+27 silly fetch manifest @emotion/react@^11.10.4
+28 http fetch GET 200 https://registry.npmjs.org/@emotion%2freact 2ms (from cache)
+29 silly fetch manifest @babel/core@^7.0.0
+30 http fetch GET 200 https://registry.npmjs.org/@babel%2fcore 2ms (from cache)
+31 silly fetch manifest react@^18.2.0
+32 http fetch GET 200 https://registry.npmjs.org/react 3ms (from cache)
+33 silly fetch manifest @emotion/styled@^11.10.4
+34 http fetch GET 200 https://registry.npmjs.org/@emotion%2fstyled 1ms (from cache)
+35 silly fetch manifest @mui/icons-material@^5.10.6
+36 http fetch GET 200 https://registry.npmjs.org/@mui%2ficons-material 2ms (from cache)
+37 silly fetch manifest @mui/material@^5.10.8
+38 http fetch GET 200 https://registry.npmjs.org/@mui%2fmaterial 4ms (from cache)
+39 silly fetch manifest @types/react@^17.0.0 || ^18.0.0
+40 http fetch GET 200 https://registry.npmjs.org/@types%2freact 4ms (from cache)
+41 silly fetch manifest react-dom@^18.2.0
+42 http fetch GET 304 https://registry.npmjs.org/react-dom 110ms (from cache)
+43 silly fetch manifest @mui/styled-engine@^5.10.8
+44 http fetch GET 200 https://registry.npmjs.org/@mui%2fstyled-engine 66ms
+45 silly fetch manifest @testing-library/jest-dom@5.16.2
+46 http fetch GET 200 https://registry.npmjs.org/@testing-library%2fjest-dom 125ms
+47 silly fetch manifest @testing-library/react@12.1.2
+48 http fetch GET 200 https://registry.npmjs.org/@testing-library%2freact 124ms
+49 silly fetch manifest @testing-library/user-event@13.5.0
+50 http fetch GET 200 https://registry.npmjs.org/@testing-library%2fuser-event 146ms
+51 silly fetch manifest @testing-library/dom@>=7.21.4
+52 http fetch GET 200 https://registry.npmjs.org/@testing-library%2fdom 152ms
+53 silly fetch manifest chroma-js@2.4.2
+54 http fetch GET 200 https://registry.npmjs.org/chroma-js 251ms
+55 silly fetch manifest react-chartjs-2@3.0.4
+56 http fetch GET 200 https://registry.npmjs.org/react-chartjs-2 238ms
+57 silly fetch manifest chart.js@^3.8.0
+58 http fetch GET 304 https://registry.npmjs.org/chart.js 54ms (from cache)
+59 silly fetch manifest react@^16.8.0 || ^17.0.0
+60 timing idealTree Completed in 1731ms
+61 timing command:install Completed in 1845ms
+62 verbose stack Error: unable to resolve dependency tree
+62 verbose stack     at Arborist.[failPeerConflict] (/usr/share/nodejs/@npmcli/arborist/lib/arborist/build-ideal-tree.js:1115:25)
+62 verbose stack     at Arborist.[loadPeerSet] (/usr/share/nodejs/@npmcli/arborist/lib/arborist/build-ideal-tree.js:1095:34)
+62 verbose stack     at async Arborist.[buildDepStep] (/usr/share/nodejs/@npmcli/arborist/lib/arborist/build-ideal-tree.js:824:11)
+62 verbose stack     at async Arborist.buildIdealTree (/usr/share/nodejs/@npmcli/arborist/lib/arborist/build-ideal-tree.js:209:7)
+62 verbose stack     at async Promise.all (index 1)
+62 verbose stack     at async Arborist.reify (/usr/share/nodejs/@npmcli/arborist/lib/arborist/reify.js:127:5)
+62 verbose stack     at async install (/usr/share/nodejs/npm/lib/install.js:38:3)
+63 verbose cwd /var/www
+64 verbose Linux 5.4.0-122-generic
+65 verbose argv "/usr/bin/node" "/usr/bin/npm" "i"
+66 verbose node v12.22.12
+67 verbose npm  v7.5.2
+68 error code ERESOLVE
+69 error ERESOLVE unable to resolve dependency tree
+70 error
+71 error While resolving: [1mundefined[22m@[1mundefined[22m
+71 error Found: [1mreact[22m@[1m18.2.0[22m[2m[22m
+71 error [2mnode_modules/react[22m
+71 error   [1mreact[22m@"[1m^18.2.0[22m" from the root project
+71 error
+71 error Could not resolve dependency:
+71 error [35mpeer[39m [1mreact[22m@"[1m^16.8.0 || ^17.0.0[22m" from [1mreact-chartjs-2[22m@[1m3.0.4[22m[2m[22m
+71 error [2mnode_modules/react-chartjs-2[22m
+71 error   [1mreact-chartjs-2[22m@"[1m3.0.4[22m" from the root project
+71 error
+71 error Fix the upstream dependency conflict, or retry
+71 error this command with --force, or --legacy-peer-deps
+71 error to accept an incorrect (and potentially broken) dependency resolution.
+71 error
+71 error See /root/.npm/eresolve-report.txt for a full report.
+72 verbose exit 1

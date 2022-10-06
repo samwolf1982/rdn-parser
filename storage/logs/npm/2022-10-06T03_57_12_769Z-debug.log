@@ -1,0 +1,73 @@
+0 verbose cli [ '/usr/bin/node', '/usr/bin/npm', 'i' ]
+1 info using npm@7.5.2
+2 info using node@v12.22.12
+3 timing config:load:defaults Completed in 1ms
+4 timing config:load:file:/usr/share/nodejs/npm/npmrc Completed in 1ms
+5 timing config:load:builtin Completed in 1ms
+6 timing config:load:cli Completed in 1ms
+7 timing config:load:env Completed in 0ms
+8 timing config:load:file:/var/www/.npmrc Completed in 0ms
+9 timing config:load:project Completed in 0ms
+10 timing config:load:file:/root/.npmrc Completed in 0ms
+11 timing config:load:user Completed in 0ms
+12 timing config:load:file:/etc/npmrc Completed in 0ms
+13 timing config:load:global Completed in 0ms
+14 timing config:load:cafile Completed in 0ms
+15 timing config:load:validate Completed in 0ms
+16 timing config:load:setUserAgent Completed in 1ms
+17 timing config:load:setEnvs Completed in 0ms
+18 timing config:load Completed in 5ms
+19 verbose npm-session 20e4eb3c5cd41e68
+20 timing npm:load Completed in 10ms
+21 timing arborist:ctor Completed in 0ms
+22 timing idealTree:init Completed in 356ms
+23 timing idealTree:userRequests Completed in 0ms
+24 silly idealTree buildDeps
+25 silly fetch manifest camelize@^1.0.0
+26 timing arborist:ctor Completed in 0ms
+27 http fetch GET 304 https://registry.npmjs.org/camelize 317ms (from cache)
+28 silly fetch manifest classnames@^2.2.6
+29 http fetch GET 200 https://registry.npmjs.org/classnames 1ms (from cache)
+30 silly fetch manifest cross-env@^5.2.0
+31 http fetch GET 200 https://registry.npmjs.org/cross-env 1ms (from cache)
+32 silly fetch manifest dateformat@^3.0.3
+33 http fetch GET 304 https://registry.npmjs.org/dateformat 39ms (from cache)
+34 silly fetch manifest flux@^3.1.3
+35 http fetch GET 200 https://registry.npmjs.org/flux 3ms (from cache)
+36 silly fetch manifest react@^18.2.0
+37 http fetch GET 200 https://registry.npmjs.org/react 6ms (from cache)
+38 silly fetch manifest react@^15.0.2 || ^16.0.0-beta || ^16.0.0
+39 timing idealTree Completed in 768ms
+40 timing command:install Completed in 1106ms
+41 verbose stack Error: unable to resolve dependency tree
+41 verbose stack     at Arborist.[failPeerConflict] (/usr/share/nodejs/@npmcli/arborist/lib/arborist/build-ideal-tree.js:1115:25)
+41 verbose stack     at Arborist.[loadPeerSet] (/usr/share/nodejs/@npmcli/arborist/lib/arborist/build-ideal-tree.js:1095:34)
+41 verbose stack     at async Arborist.[buildDepStep] (/usr/share/nodejs/@npmcli/arborist/lib/arborist/build-ideal-tree.js:824:11)
+41 verbose stack     at async Arborist.buildIdealTree (/usr/share/nodejs/@npmcli/arborist/lib/arborist/build-ideal-tree.js:209:7)
+41 verbose stack     at async Promise.all (index 1)
+41 verbose stack     at async Arborist.reify (/usr/share/nodejs/@npmcli/arborist/lib/arborist/reify.js:127:5)
+41 verbose stack     at async install (/usr/share/nodejs/npm/lib/install.js:38:3)
+42 verbose cwd /var/www
+43 verbose Linux 5.4.0-122-generic
+44 verbose argv "/usr/bin/node" "/usr/bin/npm" "i"
+45 verbose node v12.22.12
+46 verbose npm  v7.5.2
+47 error code ERESOLVE
+48 error ERESOLVE unable to resolve dependency tree
+49 error
+50 error While resolving: [1mundefined[22m@[1mundefined[22m
+50 error Found: [1mreact[22m@[1m18.2.0[22m[2m[22m
+50 error [2mnode_modules/react[22m
+50 error   [1mreact[22m@"[1m^18.2.0[22m" from the root project
+50 error
+50 error Could not resolve dependency:
+50 error [35mpeer[39m [1mreact[22m@"[1m^15.0.2 || ^16.0.0-beta || ^16.0.0[22m" from [1mflux[22m@[1m3.1.3[22m[2m[22m
+50 error [2mnode_modules/flux[22m
+50 error   [1mflux[22m@"[1m^3.1.3[22m" from the root project
+50 error
+50 error Fix the upstream dependency conflict, or retry
+50 error this command with --force, or --legacy-peer-deps
+50 error to accept an incorrect (and potentially broken) dependency resolution.
+50 error
+50 error See /root/.npm/eresolve-report.txt for a full report.
+51 verbose exit 1

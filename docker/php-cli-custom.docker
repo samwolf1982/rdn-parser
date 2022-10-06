@@ -38,7 +38,8 @@ RUN mkdir -p ioncube   && tar -xf ioncube.tar.gz -C ioncube --strip-components=1
 RUN mv ioncube/ioncube_loader_lin_7.4.so $(php -r "echo ini_get('extension_dir');")/ioncube_loader_lin_7.4.so  && rm -r ioncube
 RUN echo "zend_extension = '$(php -r "echo ini_get('extension_dir');")/ioncube_loader_lin_7.4.so'" > $PHP_INI_DIR/conf.d/00-ioncube.ini
 
-#RUN apt-get install -y npm
+RUN apt-get update
+RUN apt-get install -y npm
 #RUN npm install -g yarn
 
 ##MailHog
@@ -47,6 +48,7 @@ RUN chmod +x mhsendmail_linux_amd64
 RUN mv mhsendmail_linux_amd64 /usr/local/bin/mhsendmail
 RUN echo "[mail function]" > $PHP_INI_DIR/conf.d/mailhog.ini
 RUN echo "sendmail_path = '/usr/local/bin/mhsendmail --smtp-addr=\"mailhog:1025\"'" >> $PHP_INI_DIR/conf.d/mailhog.ini
+
 
 
 
