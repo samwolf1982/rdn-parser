@@ -148,6 +148,9 @@ services:
       - type: bind
         source: ./app-back
         target: /var/www
+      - type: bind
+        source: ./storage/logs/npm
+        target: /root/.npm/_logs
     environment:
       - "DB_PORT=${MYSQL_DB_PORT}"
       - "DB_HOST=${MYSQL_DB_HOST}"
